@@ -1,4 +1,6 @@
 base:
   '*':
     - armagan
-    - tools   
+    - tools
+  'rainy*':
+    - downloader
