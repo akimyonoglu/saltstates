@@ -13,7 +13,7 @@ transmission-daemon:
 
 /etc/transmission-daemon/settings.json:
   file.managed:
-    - source: salt://transmission/settings.json.jinja
+    - source: salt://downloader/transmission/settings.json.jinja
     - template: jinja
     - require:
       - pkg: transmission-daemon
