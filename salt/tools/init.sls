@@ -10,3 +10,7 @@ tools:
       - iperf
       - sysstat
       - git
+      - ipython
+      - wget
+      - strace
+      - telnet
