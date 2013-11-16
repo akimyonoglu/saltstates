@@ -3,4 +3,4 @@ base:
     - armagan
     - tools
   'rainy*':
-    - downloader
+    - downloader.transmission
