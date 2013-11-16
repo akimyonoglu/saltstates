@@ -2,8 +2,10 @@ transmission-cli:
   pkg.installed
 
 transmission-daemon:
-  pkg.installed
-  service.running:
+  pkg:
+    - installed
+  service:
+    - running
     - enable: True
     - reload: True
     - watch:
