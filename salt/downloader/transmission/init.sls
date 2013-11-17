@@ -18,6 +18,6 @@ transmission-daemon:
     - require:
       - pkg: transmission-daemon
     - defaults:
-      - username: armagan
-      - password: {{ salt['shadow.info']('armagan')["passwd"] }}
-      - bind_to: 25.117.225.62
+        username: armagan
+        password: {{ salt['shadow.info']('armagan')["passwd"] }}
+        bind_to: 25.117.225.62
