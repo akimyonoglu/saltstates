@@ -14,3 +14,4 @@ tools:
       - wget
       - strace
       - telnet
+      - tcpdump
