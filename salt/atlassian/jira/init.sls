@@ -12,6 +12,15 @@ include:
   file.directory:
     - makedirs: True
 
+/var/jira-home:
+  file.directory:
+    - makedirs: True
+
+set-jira-home:
+  file.managed:
+    - name: /usr/local/jira/atlassian-jira/WEB-INF/classes/jira-application.properties
+    - contents: "jira.home = /var/jira-home"
+
 extract_files:
   cmd.wait:
     - name: tar -xzf /tmp/atlassian-jira-{{ jira_version }}.tar.gz -C /usr/local/jira --strip-components=1
@@ -20,3 +29,5 @@ extract_files:
       - file: /tmp/atlassian-jira-{{ jira_version }}.tar.gz
     - require:
       - file: /usr/local/jira
+      - file: /var/jira-home
+      - file: set-jira-home
