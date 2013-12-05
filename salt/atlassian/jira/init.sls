@@ -21,7 +21,7 @@ set-jira-home:
     - name: /usr/local/jira/atlassian-jira/WEB-INF/classes/jira-application.properties
     - contents: "jira.home = /var/jira-home"
     - require:
-      - file: extract_files
+      - cmd: extract_files
 
 extract_files:
   cmd.wait:
