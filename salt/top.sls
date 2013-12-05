@@ -3,5 +3,7 @@ base:
     - armagan
     - tools
   'rainy*':
-    - atlassian.jira
     - downloader.transmission
+
+  'jira*':
+    - atlassian.jira
