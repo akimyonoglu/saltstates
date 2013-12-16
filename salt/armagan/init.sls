@@ -4,6 +4,7 @@ armagan:
     - shell: /bin/bash
     - home: /home/armagan
     - createhome: True
+    - passwd: $6$8T2Jdc6h$o/77zpEb/NVEu3hb9RLgGyE7ycdz3S35lSjekKl6HHGp2H4AxIjKcGPN4pKAMgXCeXq4WFOTR8X713jTK7EAj1
     - groups:
       - sudo
 

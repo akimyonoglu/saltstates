@@ -1,0 +1,7 @@
+[program:{{ name }}]
+command=/usr/local/bin/gunicorn wsgi:application -b unix:/tmp/{{ name }}.sock
+directory={{ directory }}
+autostart={{ autostart }}
+priority={{ priority }}
+stderr_logfile={{ stderr_logfile }}
+stdout_logfile={{ stdout_logfile }}

@@ -1,17 +1,13 @@
 tools:
-  pkg.latest:
+  pkg.installed:
     - pkgs:
-      - sudo
-      - vim
-      - screen
       - htop
+      - vim
+      - ipython
       - iftop
       - iotop
-      - iperf
-      - sysstat
-      - git
-      - ipython
       - wget
       - strace
       - telnet
-      - tcpdump
+      - screen
+      - sudo

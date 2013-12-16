@@ -1,0 +1,14 @@
+file_roots:
+  - /srv/salt
+
+pillar_roots:
+  {% for env in ["base", "dev", "test"] %}
+  {{ env }}
+    - /srv/pillar/{{ env }}
+  {% endfor %}
+
+file_ignore_glob:
+  - .svn*
+
+file_ignore_regex:
+   - '/\.svn($|/)'
