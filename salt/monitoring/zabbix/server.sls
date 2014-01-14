@@ -2,7 +2,7 @@ include:
   - mysql.databases
   - nginx
   - php.cgi.fpm
-  - monitoring.zabbix.common
+  - monitoring.zabbix.agent
 
 zabbix_pkgs:
   pkg.install:
@@ -13,14 +13,28 @@ zabbix_pkgs:
     - require:
       - pkgrepo: zabbix_ppa
 
+zabbix-server:
+  service.running:
+    - enable: True
+
+{% set name = "zabbix" %}
+{% set user = conf.get("user", "zabbix") %}
+{% set pass = conf.get("pass", "") %}
+{% set host = host.get("host", "localhost") %}
+
 {% for file in ["zabbix_server.conf", "zabbix.conf.php"] %}
 
 /etc/zabbix/{{ file }}:
   file.managed:
     - source: salt://monitoring/zabbix/files/{{ file }}.jinja
-    - defaults:
-        dbconf: {{ pillar.get("mysql_databases", {}).get("zabbix", {}) }}
     - template: jinja
+    - context:
+        user: {{ user }}
+        pass: {{ pass }}
+        host: {{ host }}
+        name: {{ name }}
+    - watch:
+      - service: zabbix-server
 {% endfor %}
 
 gunzip *.gz:
@@ -33,14 +47,18 @@ gunzip *.gz:
 {% for data in ["schema", "images", "data"] %}
 insert_{{ data }}:
   cmd.wait:
-    - name: mysql -u zabbix -p zabbix < {{ data }}.sql
+    - name: mysql -h {{ host }} -u {{ user }} -p {{ pass }} {{ name }} < {{ data }}.sql
     - require:
-      - mysql_grants: zabbix
+      - mysql_grants: {{ name }}
       {% for req in requirements %}
       - cmd: {{ req }}
       {% endfor %}
     - watch:
       - cmd: gunzip *.gz
+    {% if loop.last %}
+    - watch_in:
+      - service: zabbix-server
+    {% endif %}
 {% do requirements.append("insert_"~data) %}
 {% endfor %}
 
@@ -49,7 +67,7 @@ insert_{{ data }}:
     - source: salt://nginx/fastcgi.conf.jinja
     - template: jinja
     - defaults:
-        app_name: zabbix
+        app_name: {{ name }}
     - watch_in:
       - service: nginx
 

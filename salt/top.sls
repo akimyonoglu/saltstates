@@ -4,7 +4,7 @@ base:
     - tools
   'rainy*':
     - downloader.transmission
-    - nginx
+    - monitoring.zabbix.server
 
   'jira*':
     - atlassian.jira

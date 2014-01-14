@@ -4,7 +4,7 @@ include:
 {% for dbname, config in pillar.get('mysql_databases', {}).items() %}
 
 {% set dbuser = config.get('user', dbname) %}
-{% set dbpass = config.get('passwd', '') %}
+{% set dbpass = config.get('pass', '') %}
 {% set dbhost = config.get('host', 'localhost') %}
 
 {{ dbname }}:
