@@ -1,0 +1,17 @@
+[{{ app_name }}]
+user = www-data
+group = www-data
+
+listen = /var/run/{{ app_name }}.socket
+listen.owner = www-data
+listen.group = www-data
+
+pm = dynamic
+pm.max_children = 4
+pm.start_servers = 1
+pm.min_spare_servers = 1
+pm.max_spare_servers = 4
+php_value[post_max_size] = 16M
+php_value[max_execution_time] = 300
+php_value[max_input_time] = 300
+php_value[open_basedir] = /var/www/{{ app_name }}/:/usr/share/fonts/:/tmp

@@ -1,0 +1,35 @@
+server {
+        listen 80 {% if ssl %}443{% endif %};
+        server_name {{ server_name }};
+        access_log  /var/log/nginx/{{ app_name }}.log;
+        error_log  /var/log/nginx/{{ app_name }}.error;
+        {% if ssl %}
+        ssl on;
+        ssl_certificate {{ ssl.get("cert", "/etc/ssl/certs/"~app_name~".crt") }};
+        ssl_certificate_key {{ ssl.get("private_key", "/etc/ssl/private/"~app_name~".key") }};
+        {% endif %}
+        root /var/www/{{ app_name }}/;
+        index index.php index.html;
+        client_max_body_size 5m;
+        client_body_buffer_size 128k;
+
+        location ~ \.php$ {
+                fastcgi_pass unix:/var/run/{{ app_name }}.socket;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+        }
+
+        location ~*  \.(jpg|jpeg|png|gif|css|js|ico)$ {
+                expires max;
+                log_not_found off;
+        }
+
+        location ~ /\.ht {
+        deny all;
+        }
+
+        location ~ /\. {
+        deny all;
+        }
+}

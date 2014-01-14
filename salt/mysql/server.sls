@@ -11,10 +11,14 @@ mysql_group:
   file.managed:
     - source: salt://mysql/my.cnf.jinja
     - template: jinja
-    - defaults:
-        bind_address: 0.0.0.0
     - require:
       - pkg: mysql-server
+
+mysql_user.present:
+  - name: root
+  - password: {{ pillar.get('mysql_root_pass', "") }}
+  - require:
+    - service: mysqld
 
 mysql-server:
   pkg.installed:
