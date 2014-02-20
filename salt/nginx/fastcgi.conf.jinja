@@ -1,6 +1,6 @@
 server {
         listen 80 {% if ssl %}443{% endif %};
-        server_name {{ server_name }};
+        server_name {{ app_name }}.{{ grains.get("domain", "localdomain") }};
         access_log  /var/log/nginx/{{ app_name }}.log;
         error_log  /var/log/nginx/{{ app_name }}.error;
         {% if ssl %}

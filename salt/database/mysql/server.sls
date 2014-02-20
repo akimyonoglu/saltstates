@@ -1,6 +1,6 @@
 include:
-  - mysql.common
-  - mysql.client
+  - database.mysql.common
+  - database.mysql.client
 
 mysql_group:
   group.present:

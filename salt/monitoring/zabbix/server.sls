@@ -48,6 +48,7 @@ gunzip *.gz:
 insert_{{ data }}:
   cmd.wait:
     - name: mysql -h {{ host }} -u {{ user }} -p {{ pass }} {{ name }} < {{ data }}.sql
+    - cwd: /usr/share/zabbix-server-mysql
     - require:
       - mysql_grants: {{ name }}
       {% for req in requirements %}

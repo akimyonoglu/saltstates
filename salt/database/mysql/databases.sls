@@ -1,5 +1,5 @@
 include:
-  - mysql.server
+  - database.mysql.server
 
 {% for dbname, config in pillar.get('mysql_databases', {}).items() %}
 
