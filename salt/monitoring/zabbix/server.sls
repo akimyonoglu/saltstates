@@ -5,7 +5,7 @@ include:
   - monitoring.zabbix.agent
 
 zabbix_pkgs:
-  pkg.install:
+  pkg.installed:
     - pkgs:
       - zabbix-server-mysql
       - zabbix-frontend-php
