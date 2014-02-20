@@ -7,7 +7,7 @@ include:
 {% set dbpass = config.get('pass', '') %}
 {% set dbhost = config.get('host', 'localhost') %}
 
-{{ dbname }}:
+{{ dbname }}_db:
   mysql_database.present:
     - connection_user: root
     - connection_pass: {{ pillar.get("mysql_root_pass", "") }}
@@ -19,12 +19,12 @@ include:
     - connection_user: root
     - connection_pass: {{ pillar.get("mysql_root_pass", "") }}
     - require:
-      - mysql_database: {{ dbname }}
-      - mysql_user: {{ dbuser }}
+      - mysql_database: {{ dbname }}_db
+      - mysql_user: {{ dbuser }}_dbuser
       - pkg: python-mysqldb
       - pkg: mysql-server
 
-{{ dbuser }}:
+{{ dbuser }}_dbuser:
   mysql_user.present:
     - host: localhost
     - password: {{ dbpass }}
