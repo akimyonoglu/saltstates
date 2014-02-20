@@ -11,5 +11,5 @@ zabbix-agent:
 
 /etc/zabbix/zabbix_agentd.conf:
   file.managed:
-    - source: salt://monitoring/zabbix/files/zabbix_agentd.conf
+    - source: salt://monitoring/zabbix/files/zabbix_agentd.conf.jinja
     - template: jinja
