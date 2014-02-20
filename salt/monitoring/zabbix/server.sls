@@ -33,7 +33,7 @@ zabbix-server:
         user: {{ user }}
         pass: {{ pass }}
         host: {{ host }}
-        name: {{ name }}
+        name: {{ dbname }}
     - watch:
       - service: zabbix-server
 {% endfor %}
@@ -48,10 +48,10 @@ gunzip *.gz:
 {% for data in ["schema", "images", "data"] %}
 insert_{{ data }}:
   cmd.wait:
-    - name: mysql -h {{ host }} -u {{ user }} -p {{ pass }} {{ name }} < {{ data }}.sql
+    - name: mysql -h {{ host }} -u {{ user }} -p {{ pass }} {{ dbname }} < {{ data }}.sql
     - cwd: /usr/share/zabbix-server-mysql
     - require:
-      - mysql_grants: {{ name }}
+      - mysql_grants: {{ dbname }}
       {% for req in requirements %}
       - cmd: {{ req }}
       {% endfor %}
@@ -69,7 +69,7 @@ insert_{{ data }}:
     - source: salt://nginx/fastcgi.conf.jinja
     - template: jinja
     - defaults:
-        app_name: {{ name }}
+        app_name: {{ dbname }}
     - watch_in:
       - service: nginx
 
