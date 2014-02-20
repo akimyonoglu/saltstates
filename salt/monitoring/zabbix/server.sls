@@ -77,5 +77,7 @@ insert_{{ data }}:
   file.managed:
     - source: salt://php/cgi/fpm/php-fpm.conf.jinja
     - template: jinja
+    - context:
+        app_name: {{ dbname }}
     - watch_in:
       - service: php5-fpm
