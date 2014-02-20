@@ -1,5 +1,7 @@
+{% set conf = pillar.get("nginx_conf", {}).get(app_name, {}) %}
+
 server {
-        listen 80 {% if ssl %}443{% endif %};
+        listen 80 {% if conf.get("ssl", False) %}443{% endif %};
         server_name {{ app_name }}.{{ grains.get("domain", "localdomain") }};
         access_log  /var/log/nginx/{{ app_name }}.log;
         error_log  /var/log/nginx/{{ app_name }}.error;
