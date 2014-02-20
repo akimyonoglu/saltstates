@@ -3,8 +3,8 @@
 server {
         listen 80 {% if conf.get("ssl", False) %}443{% endif %};
         server_name {{ app_name }}.{{ grains.get("domain", "localdomain") }};
-        access_log  /var/log/nginx/{{ app_name }}.log;
-        error_log  /var/log/nginx/{{ app_name }}.error;
+        access_log  /var/log/nginx/{{ app_name }}_access.log;
+        error_log  /var/log/nginx/{{ app_name }}_error.log;
         {% if conf.get("ssl", False) %}
         ssl on;
         ssl_certificate {{ ssl.get("cert", "/etc/ssl/certs/"~app_name~".crt") }};
