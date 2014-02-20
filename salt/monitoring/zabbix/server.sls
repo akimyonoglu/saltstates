@@ -51,7 +51,7 @@ insert_{{ data }}:
     - name: mysql -h {{ host }} -u {{ user }} -p {{ pass }} {{ dbname }} < {{ data }}.sql
     - cwd: /usr/share/zabbix-server-mysql
     - require:
-      - mysql_grants: {{ dbname }}
+      - mysql_grants: {{ dbname }}_db
       {% for req in requirements %}
       - cmd: {{ req }}
       {% endfor %}
