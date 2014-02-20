@@ -17,10 +17,11 @@ zabbix-server:
   service.running:
     - enable: True
 
-{% set name = "zabbix" %}
-{% set user = conf.get("user", "zabbix") %}
-{% set pass = conf.get("pass", "") %}
-{% set host = host.get("host", "localhost") %}
+{% set dbname = "zabbix" %}
+{% set dbconf = pillar.get("mysql_databases", {}).get(dbname, {}) %}
+{% set user = dbconf.get("user", "zabbix") %}
+{% set pass = dbconf.get("pass", "zabbix") %}
+{% set host = "localhost" %} #TODO make this generic
 
 {% for file in ["zabbix_server.conf", "zabbix.conf.php"] %}
 
