@@ -26,6 +26,7 @@ include:
 
 {{ dbuser }}_dbuser:
   mysql_user.present:
+    - name: {{ dbuser }}
     - host: localhost
     - password: {{ dbpass }}
     - connection_user: root
