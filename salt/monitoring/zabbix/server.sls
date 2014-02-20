@@ -75,7 +75,7 @@ insert_{{ data }}:
 
 /etc/php5/fpm/conf.d/zabbix.conf:
   file.managed:
-    - source: salt://php/cgi/fpm/php-conf.jinja
+    - source: salt://php/cgi/fpm/php-fpm.conf.jinja
     - template: jinja
     - watch_in:
       - service: php5-fpm
