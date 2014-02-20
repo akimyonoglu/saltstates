@@ -1,5 +1,5 @@
 include:
-  - mysql.databases
+  - database.mysql.server
   - nginx
   - php.cgi.fpm
   - monitoring.zabbix.agent
