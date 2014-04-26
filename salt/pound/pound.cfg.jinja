@@ -26,8 +26,10 @@ Alive           30
 # poundctl control socket
 Control "/var/run/pound/poundctl.socket"
 
+{% set iface = grains.get("ip_interfaces", {}).get("eth0", ["0.0.0.0"])[0] %}
+
 ListenHTTP
-  Address {{ grains.get("ip_interfaces", {}).get("eth0", "0.0.0.0") }}
+  Address {{ iface }}
   Port    80
   Service
     Redirect "https://{{ grains.get("host", "www") }}.armkim.com/"
@@ -35,7 +37,7 @@ ListenHTTP
 End
 
 ListenHTTPS
-  Address {{ grains.get("ip_interfaces", {}).get("eth0", ["0.0.0.0"])[0] }}
+  Address {{ iface }}
   Port    443
   Cert    "{{ pillar.get("ssl_cert", "/etc/pound/ssl.crt") }}"
   Service
