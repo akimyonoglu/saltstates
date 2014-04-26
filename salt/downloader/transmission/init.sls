@@ -11,6 +11,8 @@ transmission-daemon:
     - watch:
       - file: /etc/transmission-daemon/settings.json
 
+{% set transmission = pillar.get("transmission", {}) %}
+
 /etc/transmission-daemon/settings.json:
   file.managed:
     - source: salt://downloader/transmission/settings.json.jinja
@@ -18,4 +20,8 @@ transmission-daemon:
     - require:
       - pkg: transmission-daemon
     - defaults:
-        bind_to: 25.117.225.62
+        user: {{ transmission.get("user", "guest") }}
+        pass: {{ transmission.get("pass", "guest") }}
+        bind_to: {{ transmission.get("bind_iface", "127.0.0.1") }}
+        port: {{ transmission.get("port", "9191") }}
+        url: {{ transmission.get("url", "/piratebay/rpc") }}

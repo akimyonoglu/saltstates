@@ -81,3 +81,7 @@ insert_{{ data }}:
         app_name: {{ dbname }}
     - watch_in:
       - service: php5-fpm
+
+/var/www/zabbix:
+  file.symlink:
+    - target: /usr/share/zabbix

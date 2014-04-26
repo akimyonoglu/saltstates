@@ -1,6 +1,6 @@
-openjdk-7-jre-headless:
-  pkg:
-    - installed
+include:
+  - java.openjdk.jre
+  - logging.logstash.common
 
 /opt/logstash/:
   file.directory:
@@ -25,14 +25,12 @@ openjdk-7-jre-headless:
     - group: root
 
 /etc/logstash/logstash.conf:
-  file:
-    - managed
+  file.managed:
     - source: salt://logging/logstash/files/logstash.conf
     - template: jinja
 
 /etc/init/logstash.conf:
-  file:
-    - managed
+  file.managed:
     - source: salt://logging/logstash/files/logstash.init
 
 logstash:
@@ -44,16 +42,11 @@ logstash:
     - group: root
     - mode: 664
     - require:
-      - pkg: openjdk-7-jre-headless
-  service:
-    - running
+      - pkg: openjdk-jre
+  service.running:
+    - enable: True
     - watch:
       - file: /etc/init/logstash.conf
       - file: /etc/logstash/logstash.conf
     - require:
       - user: logstash
-  user:
-    - present
-    - fullname: Logstash User
-    - home: /opt/logstash
-    - system: true
