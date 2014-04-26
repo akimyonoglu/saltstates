@@ -28,11 +28,13 @@ tar jxf afpfs-ng-0.8.1.tar.bz2:
     - cwd: /tmp/afpfs-ng-0.8.1
     - watch:
       - cmd: tar jxf afpfs-ng-0.8.1.tar.bz2
-    - unless: which
+    - unless: which mount_afp
+    - require:
+      - pkg: build-pkgs
 
 make install:
   cmd.wait:
     - cwd: /tmpafpfs-ng-0.8.1
     - watch:
       - cmd: ./configure
-    - unless: which
+    - unless: which mount_afp
