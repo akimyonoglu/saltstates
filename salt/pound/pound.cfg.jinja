@@ -35,7 +35,7 @@ ListenHTTP
 End
 
 ListenHTTPS
-  Address {{ grains.get("ip_interfaces", {}).get("eth0", "0.0.0.0") }}
+  Address {{ grains.get("ip_interfaces", {}).get("eth0", ["0.0.0.0"])[0] }}
   Port    443
   Cert    "{{ pillar.get("ssl_cert", "/etc/pound/ssl.crt") }}"
   Service
