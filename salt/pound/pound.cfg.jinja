@@ -41,7 +41,7 @@ ListenHTTPS
   Port    443
   Cert    "{{ pillar.get("ssl_cert", "/etc/pound/ssl.crt") }}"
   {% for extra in headers %}
-  AddHeader "{{}}"
+  AddHeader "{{ extra }}"
   {% endfor %}
   Service
     BackEnd
