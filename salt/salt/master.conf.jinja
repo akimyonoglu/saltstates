@@ -1,14 +1,9 @@
-file_roots:
-  - /srv/salt
+fileserver_backend:
+  - git
 
-pillar_roots:
-  {% for env in ["base", "dev", "test"] %}
-  {{ env }}
-    - /srv/pillar/{{ env }}
-  {% endfor %}
+gitfs_provider: gitpython
 
-file_ignore_glob:
-  - .svn*
+gitfs_remotes:
+  - https://github.com/akimyonoglu/saltstates.git
 
-file_ignore_regex:
-   - '/\.svn($|/)'
+gitfs_root: salt
