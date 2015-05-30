@@ -2,6 +2,7 @@ base:
   '*':
     - armagan
     - tools
+    - hamachi
 
   'rainy*':
-    - downloader.transmission
+    - openvpn.server

@@ -4,13 +4,12 @@ armagan:
     - shell: /bin/bash
     - home: /home/armagan
     - createhome: True
-    - passwd: $6$8T2Jdc6h$o/77zpEb/NVEu3hb9RLgGyE7ycdz3S35lSjekKl6HHGp2H4AxIjKcGPN4pKAMgXCeXq4WFOTR8X713jTK7EAj1
+    - passwd: $6$vM7DTajG$GbktgtypZz37br6cHYeodWPf7M9E86.CjjMFfdaUHJ/UDruJj6apBTv3OmFIc.xaeLDLjRoJAhp8ZO2EsjLf3/
     - groups:
       - sudo
 
 armagan_ssh_key:
-  ssh_auth:
-    - present
+  ssh_auth.present:
     - user: armagan
     - source: salt://armagan/id_rsa_personal.pub
     - require:
