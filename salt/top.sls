@@ -4,5 +4,6 @@ base:
     - tools
     - hamachi
 
-  'rainy*':
+  'rainy* or dreamy*':
+    - match: compound
     - openvpn.server
