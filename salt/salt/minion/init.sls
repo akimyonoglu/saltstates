@@ -16,3 +16,20 @@ install_minion:
     - unless: which salt-minion
     - watch:
       - cmd: download_bootstrap
+
+salt-minion:
+  pkg.installed:
+    - require:
+      - cmd: install_minion
+  service.running:
+    - enable: True
+    - require:
+      - pkg: salt-minion
+
+{% if grains.get('nodename') in ['rainy'] %}
+/etc/salt/minion.d/beacons.conf:
+  file.managed:
+    - source: salt://salt/minion/files/beacons.conf
+    - watch_in:
+      - service: salt-minion
+{% endif %}
