@@ -5,6 +5,7 @@ download_bootstrap:
   cmd.run:
     - name: "wget --no-check-certificate -O salt_bootstrap.sh http://bootstrap.saltstack.org && chmod +x salt_bootstrap.sh"
     - unless: ls salt_bootstrap.sh || which salt-minion
+    - python_shell: True
     - cwd: /tmp
     - require:
       - pkg: wget
