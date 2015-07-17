@@ -12,6 +12,8 @@ Ensure Openvpn Running:
     - enable: True
     - require:
       - pkg: Ensure Openvpn Installed
+    - watch:
+      - cmd: Promote Admin Privileges
 
 Promote Admin Privileges:
   cmd.wait:
@@ -20,6 +22,7 @@ Promote Admin Privileges:
     - cwd: /usr/local/openvpn_as/scripts
     - python_shell: True
     - watch:
-      - service: Ensure Openvpn Running
+      - pkg: Ensure Openvpn Installed
     - require:
       - user: armagan
+      - service: Ensure Openvpn Running
