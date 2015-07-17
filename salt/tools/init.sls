@@ -11,3 +11,4 @@ tools:
       - telnet
       - screen
       - sudo
+      - bwm-ng

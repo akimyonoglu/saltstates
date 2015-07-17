@@ -2,7 +2,6 @@ base:
   '*':
     - armagan
     - tools
-    - hamachi
     - ssh.server
     - salt.minion
 
