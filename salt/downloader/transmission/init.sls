@@ -6,6 +6,7 @@ Ensure Transmission Installed:
 
 Ensure Transmission Running:
   service.running:
+    - name: transmission-daemon
     - enable: True
     - require: Ensure Transmission Installed
     - watch:
