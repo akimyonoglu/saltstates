@@ -5,6 +5,7 @@ base:
     - ssh.server
     - salt.minion
     - system
+    - monitoring.newrelic
 
   'rainy* or dreamy*':
     - match: compound
