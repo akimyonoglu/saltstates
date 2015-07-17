@@ -8,7 +8,8 @@ Ensure Transmission Running:
   service.running:
     - name: transmission-daemon
     - enable: True
-    - require: Ensure Transmission Installed
+    - require:
+      - pkg: Ensure Transmission Installed
     - watch:
       - file: Ensure Transmission Configured
 
