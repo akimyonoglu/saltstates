@@ -33,6 +33,8 @@ Ensure Incomplete Directory Present:
 Ensure Transmission Stopped:
   service.dead:
     - name: transmission-daemon
+    - require:
+      - pkg: transmission-daemon
 
 Ensure Transmission Configured:
   file.managed:

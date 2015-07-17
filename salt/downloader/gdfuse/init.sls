@@ -3,7 +3,7 @@ python-software-properties:
 
 Ensure Google Drive Fuse Repo Present:
   pkgrepo.managed:
-    - ppa: ppa:alessandro-strada/ppa
+    - ppa: alessandro-strada/ppa
     - require:
       - pkg: python-software-properties
 
