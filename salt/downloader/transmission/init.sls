@@ -1,43 +1,43 @@
-include:
-  - pound
+Ensure Transmission Installed:
+  pkg.installed:
+    - names:
+      - transmission-daemon
+      - transmission-cli
 
-transmission-cli:
-  pkg.installed
-
-transmission-daemon:
-  pkg:
-    - installed
-  service:
-    - running
+Ensure Transmission Running:
+  service.running:
     - enable: True
-    - reload: True
+    - require: Ensure Transmission Installed
     - watch:
-      - file: /etc/transmission-daemon/settings.json
+      - file: Ensure Transmission Configured
+
+Ensure Incomplete Directory Present:
+  file.directory:
+    - name: /transmission/incomplete
+    - makedirs: True
+    - user: debian-transmission
+    - group: debian-transmission
+    - dir_mode: 755
+    - file_mode: 644
+    - recurse:
+      - user
+      - group
+      - mode
+    - require:
+      - pkg: Ensure Transmission Installed
 
 {% set transmission = pillar.get("transmission", {}) %}
 
-/etc/transmission-daemon/settings.json:
+Ensure Transmission Stopped:
+  service.dead:
+    - name: transmission-daemon
+
+Ensure Transmission Configured:
   file.managed:
+    - name: /etc/transmission-daemon/settings.json
     - source: salt://downloader/transmission/settings.json.jinja
     - template: jinja
     - require:
       - pkg: transmission-daemon
-    - defaults:
-        user: {{ transmission.get("user", "guest") }}
-        pass: {{ transmission.get("pass", "guest") }}
-        bind_to: {{ transmission.get("bind_iface", "127.0.0.1") }}
-        port: {{ transmission.get("port", "9191") }}
-
-/etc/pound/pound.cfg:
-  file.managed:
-    - source: salt://pound/pound.cfg.jinja
-    - template: jinja
-    - context:
-        backend_addr: {{ transmission.get("bind_iface", "127.0.0.1") }}
-        backend_port: {{ transmission.get("port", "9191") }}
-        headers:
-          - "Front-End-Https: on"
-    - require:
-      - pkg: pound
-    - watch_in:
-      - service: pound
+      - service: Ensure Transmission Stopped
+      - file: Ensure Incomplete Directory Present

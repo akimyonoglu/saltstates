@@ -1,3 +1,6 @@
+include:
+  - armagan
+
 Ensure Openvpn Installed:
   pkg.installed:
     - sources:
@@ -9,3 +12,14 @@ Ensure Openvpn Running:
     - enable: True
     - require:
       - pkg: Ensure Openvpn Installed
+
+Promote Admin Privileges:
+  cmd.wait:
+    - name: ./sacli --user armagan --key prop_superuser --value true UserPropPut
+    - unless: ./confdba -us | grep -A1 armagan |grep '"prop_superuser": "true"'
+    - cwd: /usr/local/openvpn_as/scripts
+    - python_shell: True
+    - watch:
+      - service: Ensure Openvpn Running
+    - require:
+      - user: armagan
