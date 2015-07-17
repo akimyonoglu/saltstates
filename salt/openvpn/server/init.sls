@@ -16,7 +16,7 @@ Ensure Openvpn Running:
 Promote Admin Privileges:
   cmd.wait:
     - name: ./sacli --user armagan --key prop_superuser --value true UserPropPut
-    - unless: "./confdba -us | grep -A1 armagan |grep '\"prop_superuser\": \"true\"'"
+    - unless: ./confdba -us | grep -A1 armagan |grep prop_superuser|grep true
     - cwd: /usr/local/openvpn_as/scripts
     - python_shell: True
     - watch:

@@ -6,6 +6,6 @@ Ensure Plex Media Server Installed:
 Ensure Plex Media Server Running:
   service.running:
     - name: plexmediaserver
-    - enabled: True
+    - enable: True
     - require:
       - pkg: Ensure Plex Media Server Installed
