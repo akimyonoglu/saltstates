@@ -12,3 +12,4 @@ tools:
       - screen
       - sudo
       - bwm-ng
+      - sysstat

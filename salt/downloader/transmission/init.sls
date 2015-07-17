@@ -15,7 +15,7 @@ Ensure Transmission Running:
 
 Ensure Incomplete Directory Present:
   file.directory:
-    - name: /transmission/incomplete
+    - name: /var/lib/transmission-daemon/incomplete
     - makedirs: True
     - user: debian-transmission
     - group: debian-transmission

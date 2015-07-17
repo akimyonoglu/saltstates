@@ -4,6 +4,7 @@ base:
     - tools
     - ssh.server
     - salt.minion
+    - system
 
   'rainy* or dreamy*':
     - match: compound
