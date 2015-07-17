@@ -16,13 +16,11 @@ Ensure Openvpn Running:
       - cmd: Promote Admin Privileges
 
 Promote Admin Privileges:
-  cmd.wait:
+  cmd.run:
     - name: ./sacli --user armagan --key prop_superuser --value true UserPropPut
     - unless: ./confdba -us | grep -A1 armagan |grep prop_superuser|grep true
     - cwd: /usr/local/openvpn_as/scripts
     - python_shell: True
-    - watch:
-      - pkg: Ensure Openvpn Installed
     - require:
       - user: armagan
       - service: Ensure Openvpn Running
