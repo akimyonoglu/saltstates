@@ -23,4 +23,4 @@ Promote Admin Privileges:
     - python_shell: True
     - require:
       - user: armagan
-      - service: Ensure Openvpn Running
+      - service: Ensure Openvpn Installed
